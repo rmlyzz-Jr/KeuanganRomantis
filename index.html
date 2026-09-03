@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>Keuangan ROMANTIS</title>
+  <title>Keuangan ROMANTIS - Atur Keuangan, Wujudkan Mimpi</title>
   
-  <!-- ===== PWA META TAGS ===== -->
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiS2V1YW5nYW4gUHJvIC0gQXR1ciBVYW5nICZBbmdnYXJhbiIsInNob3J0X25hbWUiOiJLZXVhbmdhbiBQcm8iLCJkZXNjcmlwdGlvbiI6IkFwbGlrYXNpIHBlbmNhdGF0YW4ga2V1YW5nYW4gZGVuZ2FuIGZpdHVyIGFuZ2dhcmFuLCBtdWx0aS1yZWtlbmluZywgZGFuIGxhcG9yYW4uIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmOGY5ZmEiLCJ0aGVtZV9jb2xvciI6IiMxYTczZTgiLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly9pLmliYi5jby5jb20veWN4enlHY0MvbG9nby1rZXVhbmdhbi5qcGciLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvanBlZyIsInB1cnBvc2UiOiJhbnkgbWFza2FibGUifV19">
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="https://i.ibb.co.com/wZMrZqwn/logo-romantis.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#1a73e8">
+  <meta name="theme-color" content="#e91e63">
   <meta name="mobile-web-app-capable" content="yes">
   
   <style>
     /* ===== RESET & VARIABLES ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
     :root {
-      --primary: #1a73e8;
-      --primary-dark: #1557b0;
-      --primary-light: #e8f0fe;
+      --primary: #e91e63;
+      --primary-dark: #c2185b;
+      --primary-light: #fce4ec;
+      --secondary: #9c27b0;
       --success: #0f9d58;
       --danger: #d93025;
       --warning: #f9ab00;
@@ -31,7 +31,7 @@
       --gray-600: #5f6368;
       --gray-800: #202124;
       --shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
-      --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
+      --shadow-hover: 0 4px 12px rgba(233,30,99,0.25);
       --radius: 16px;
       --radius-sm: 10px;
       --transition: all 0.25s ease;
@@ -40,26 +40,39 @@
     #app-container { width: 100%; max-width: 1280px; padding: 16px; }
 
     /* ===== AUTH ===== */
-    .auth-wrap { display: flex; justify-content: center; align-items: center; min-height: 90vh; }
+    .auth-wrap { display: flex; justify-content: center; align-items: center; min-height: 90vh; background: linear-gradient(135deg, #fce4ec 0%, #f8f9fa 100%); }
     .auth-card {
       background: white; padding: 40px 32px; border-radius: var(--radius);
       box-shadow: var(--shadow-hover); width: 100%; max-width: 400px;
-      transition: var(--transition);
+      transition: var(--transition); border-top: 4px solid var(--primary);
     }
-    .auth-card h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
-    .auth-card h1 img { height: 36px; width: 36px; object-fit: contain; border-radius: 8px; }
-    .auth-card .subtitle { color: var(--gray-600); margin-bottom: 24px; font-size: 14px; }
+    .auth-card h1 { 
+      font-size: 28px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; 
+      color: var(--primary);
+    }
+    .auth-card h1 img { height: 40px; width: 40px; object-fit: contain; border-radius: 50%; }
+    .auth-card .subtitle { color: var(--gray-600); margin-bottom: 24px; font-size: 14px; font-style: italic; }
+    .auth-card .tagline {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+      padding: 10px;
+      background: var(--primary-light);
+      border-radius: var(--radius-sm);
+    }
     .auth-card input {
       width: 100%; padding: 12px 16px; margin-bottom: 16px; border: 1.5px solid var(--gray-200);
       border-radius: var(--radius-sm); font-size: 14px; transition: var(--transition);
     }
-    .auth-card input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,115,232,0.2); }
+    .auth-card input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(233,30,99,0.2); }
     .btn-primary {
       width: 100%; padding: 12px; background: var(--primary); color: white; border: none;
       border-radius: var(--radius-sm); font-size: 16px; font-weight: 600; cursor: pointer;
       transition: var(--transition); margin-top: 4px;
     }
     .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-hover); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
     .switch-link { text-align: center; margin-top: 20px; font-size: 14px; color: var(--gray-600); }
     .switch-link a { color: var(--primary); cursor: pointer; font-weight: 500; }
     .error-msg { color: var(--danger); font-size: 14px; margin-bottom: 12px; padding: 8px 12px; background: #fce8e6; border-radius: 8px; display: none; }
@@ -70,11 +83,14 @@
       display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
       background: white; padding: 12px 24px; border-radius: var(--radius);
       box-shadow: var(--shadow); margin-bottom: 24px;
+      border-bottom: 3px solid var(--primary);
     }
     .brand {
       display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700;
+      color: var(--primary);
     }
-    .brand img { height: 32px; width: 32px; object-fit: contain; border-radius: 8px; }
+    .brand img { height: 32px; width: 32px; object-fit: contain; border-radius: 50%; }
+    .brand small { font-size: 12px; font-weight: 400; color: var(--gray-600); }
     .nav-links {
       display: flex; flex-wrap: wrap; gap: 4px; background: var(--gray-100); padding: 4px; border-radius: 12px;
     }
@@ -82,8 +98,8 @@
       padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;
       color: var(--gray-600); transition: var(--transition); text-decoration: none;
     }
-    .nav-links a:hover { background: rgba(26,115,232,0.08); }
-    .nav-links a.active { background: white; color: var(--primary); box-shadow: var(--shadow); }
+    .nav-links a:hover { background: var(--primary-light); color: var(--primary); }
+    .nav-links a.active { background: var(--primary); color: white; box-shadow: var(--shadow); }
     .user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
     .btn-logout {
       padding: 6px 16px; background: var(--gray-200); border: none; border-radius: 8px;
@@ -111,7 +127,7 @@
     .stat-card.saldo .stat-value { color: var(--primary); }
     .stat-card.income .stat-value { color: var(--success); }
     .stat-card.expense .stat-value { color: var(--danger); }
-    .stat-card.budget .stat-value { color: var(--warning); }
+    .stat-card.budget .stat-value { color: var(--secondary); }
 
     /* ===== BUDGET ===== */
     .budget-grid {
@@ -136,13 +152,13 @@
 
     /* ===== FORMS ===== */
     .form-card { max-width: 500px; margin: 0 auto; }
-    .form-card h2 { margin-bottom: 20px; font-size: 22px; }
+    .form-card h2 { margin-bottom: 20px; font-size: 22px; color: var(--primary); }
     .form-card label { font-weight: 500; font-size: 14px; display: block; margin: 12px 0 4px; }
     .form-card input, .form-card select {
       width: 100%; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
       font-size: 14px; transition: var(--transition);
     }
-    .form-card input:focus, .form-card select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,115,232,0.2); }
+    .form-card input:focus, .form-card select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(233,30,99,0.2); }
 
     /* ===== TABLE ===== */
     .filter-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 16px 0; }
@@ -157,31 +173,11 @@
     .data-table tbody { display: table; width: 100%; table-layout: fixed; }
     .data-table th { text-align: left; padding: 12px 8px; border-bottom: 2px solid var(--gray-200); color: var(--gray-600); font-weight: 600; }
     .data-table td { padding: 10px 8px; border-bottom: 1px solid var(--gray-100); }
-    .data-table tr:hover { background: var(--gray-50); }
+    .data-table tr:hover { background: var(--primary-light); }
     .badge-income { color: var(--success); font-weight: 600; }
     .badge-expense { color: var(--danger); font-weight: 600; }
     .btn-delete { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 16px; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      #app-container { padding: 8px; }
-      .topbar { flex-direction: column; gap: 12px; align-items: stretch; padding: 16px; }
-      .nav-links { justify-content: center; }
-      .user-info { justify-content: space-between; }
-      .charts-row { grid-template-columns: 1fr; }
-      .cards-row { grid-template-columns: 1fr 1fr; }
-      .auth-card { padding: 24px 16px; }
-      .data-table { font-size: 12px; }
-      .data-table th, .data-table td { padding: 6px 4px; }
-    }
-    @media (max-width: 480px) {
-      .cards-row { grid-template-columns: 1fr; }
-      .nav-links a { font-size: 12px; padding: 6px 12px; }
-      .brand { font-size: 16px; }
-    }
-    @media (min-width: 1024px) {
-      .charts-row { grid-template-columns: 1fr 1fr; }
-    }
+    .loading { text-align: center; padding: 20px; color: var(--gray-600); }
 
     /* ===== PWA INSTALL BANNER ===== */
     #install-banner {
@@ -213,6 +209,27 @@
       font-size: 20px;
       cursor: pointer;
     }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      #app-container { padding: 8px; }
+      .topbar { flex-direction: column; gap: 12px; align-items: stretch; padding: 16px; }
+      .nav-links { justify-content: center; }
+      .user-info { justify-content: space-between; }
+      .charts-row { grid-template-columns: 1fr; }
+      .cards-row { grid-template-columns: 1fr 1fr; }
+      .auth-card { padding: 24px 16px; }
+      .data-table { font-size: 12px; }
+      .data-table th, .data-table td { padding: 6px 4px; }
+    }
+    @media (max-width: 480px) {
+      .cards-row { grid-template-columns: 1fr; }
+      .nav-links a { font-size: 12px; padding: 6px 12px; }
+      .brand { font-size: 16px; }
+    }
+    @media (min-width: 1024px) {
+      .charts-row { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -220,7 +237,7 @@
 
   <!-- ===== INSTALL BANNER PWA ===== -->
   <div id="install-banner">
-    <span>📱 Instal aplikasi ini di HP/PC Anda untuk pengalaman lebih baik!</span>
+    <span>💕 Instal aplikasi ROMANTIS di HP/PC Anda!</span>
     <div>
       <button class="btn-install" id="btn-install-pwa">Instal Sekarang</button>
       <button class="btn-close-install" id="btn-close-install">✕</button>
@@ -230,21 +247,28 @@
   <!-- ==================== LOGIN ==================== -->
   <div id="view-login" class="auth-wrap">
     <div class="auth-card">
-      <h1><img src="https://i.ibb.co.com/ycxzyGcC/logo-keuangan.jpg" alt="Logo" onerror="this.style.display='none'"> Keuangan</h1>
-      <p class="subtitle">Masuk untuk kelola keuangan Anda</p>
+      <h1>
+        <img src="https://i.ibb.co.com/wZMrZqwn/logo-romantis.png" alt="Logo" onerror="this.style.display='none'">
+        ROMANTIS
+      </h1>
+      <p class="subtitle">💕 Atur Keuangan, Wujudkan Mimpi 💕</p>
+      <div class="tagline">✨ Bersama, kita wujudkan masa depan yang indah ✨</div>
       <div id="login-error" class="error-msg"></div>
       <input id="login-username" type="text" placeholder="Username">
       <input id="login-password" type="password" placeholder="Password">
       <button class="btn-primary" onclick="doLogin()">Masuk</button>
       <p class="switch-link">Belum punya akun? <a onclick="showRegister()">Daftar</a></p>
+      <p style="font-size:11px;color:var(--gray-600);text-align:center;margin-top:12px;">
+        💗 Kelola keuangan bersama pasangan 💗
+      </p>
     </div>
   </div>
 
   <!-- ==================== REGISTER ==================== -->
   <div id="view-register" class="auth-wrap" style="display:none;">
     <div class="auth-card">
-      <h1>Daftar</h1>
-      <p class="subtitle">Buat akun baru</p>
+      <h1>💕 Daftar</h1>
+      <p class="subtitle">Mulai perjalanan keuangan bersama</p>
       <div id="register-error" class="error-msg"></div>
       <div id="register-success" class="success-msg"></div>
       <input id="reg-username" type="text" placeholder="Username">
@@ -260,8 +284,8 @@
     <!-- TOPBAR -->
     <nav class="topbar">
       <div class="brand">
-        <img src="https://i.ibb.co.com/ycxzyGcC/logo-keuangan.jpg" alt="Logo" onerror="this.style.display='none'">
-        Keuangan Pro
+        <img src="https://i.ibb.co.com/wZMrZqwn/logo-romantis.png" alt="Logo" onerror="this.style.display='none'">
+        ROMANTIS <small>❤️ Keuangan</small>
       </div>
       <div class="nav-links">
         <a onclick="showTab('dashboard')" class="tab-link active" data-tab="dashboard">📊 Dashboard</a>
@@ -281,15 +305,18 @@
 
       <!-- ===== DASHBOARD ===== -->
       <section id="tab-dashboard" class="tab-content active">
-        <div class="cards-row">
-          <div class="stat-card saldo"><span class="stat-label">💰 Total Saldo</span><span id="stat-saldo" class="stat-value">Rp0</span></div>
-          <div class="stat-card income"><span class="stat-label">📈 Pemasukan</span><span id="stat-income" class="stat-value">Rp0</span></div>
-          <div class="stat-card expense"><span class="stat-label">📉 Pengeluaran</span><span id="stat-expense" class="stat-value">Rp0</span></div>
-          <div class="stat-card budget"><span class="stat-label">🎯 Sisa Anggaran</span><span id="stat-budget" class="stat-value">Rp0</span></div>
-        </div>
-        <div class="charts-row">
-          <div class="chart-box"><h3>Pengeluaran per Kategori</h3><canvas id="chart-category"></canvas></div>
-          <div class="chart-box"><h3>Pemasukan vs Pengeluaran (6 Bulan)</h3><canvas id="chart-monthly"></canvas></div>
+        <div id="dashboard-loading" class="loading">⏳ Memuat data...</div>
+        <div id="dashboard-content" style="display:none;">
+          <div class="cards-row">
+            <div class="stat-card saldo"><span class="stat-label">💰 Total Saldo</span><span id="stat-saldo" class="stat-value">Rp0</span></div>
+            <div class="stat-card income"><span class="stat-label">📈 Pemasukan</span><span id="stat-income" class="stat-value">Rp0</span></div>
+            <div class="stat-card expense"><span class="stat-label">📉 Pengeluaran</span><span id="stat-expense" class="stat-value">Rp0</span></div>
+            <div class="stat-card budget"><span class="stat-label">🎯 Sisa Anggaran</span><span id="stat-budget" class="stat-value">Rp0</span></div>
+          </div>
+          <div class="charts-row">
+            <div class="chart-box"><h3>💗 Pengeluaran per Kategori</h3><canvas id="chart-category"></canvas></div>
+            <div class="chart-box"><h3>💕 Pemasukan vs Pengeluaran (6 Bulan)</h3><canvas id="chart-monthly"></canvas></div>
+          </div>
         </div>
       </section>
 
@@ -313,7 +340,7 @@
           <input id="tx-amount" type="number" min="0" placeholder="0">
           <label>Deskripsi</label>
           <input id="tx-description" type="text" placeholder="Opsional">
-          <button class="btn-primary" onclick="submitTransaction()">Simpan Transaksi</button>
+          <button class="btn-primary" onclick="submitTransaction()">💾 Simpan Transaksi</button>
         </div>
       </section>
 
@@ -325,12 +352,11 @@
           <input id="filter-end" type="date">
           <button class="btn-secondary" onclick="loadHistory()">Filter</button>
           <button class="btn-secondary" onclick="exportCSV()">📤 Export CSV</button>
-          <button class="btn-secondary" onclick="exportPDF()">📄 Export PDF</button>
         </div>
         <div style="overflow-x:auto;">
           <table class="data-table">
             <thead><tr><th>Tanggal</th><th>Tipe</th><th>Kategori</th><th>Rekening</th><th>Jumlah</th><th>Deskripsi</th><th></th></tr></thead>
-            <tbody id="history-body"></tbody>
+            <tbody id="history-body"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--gray-600);">⏳ Memuat data...</td></tr></tbody>
           </table>
         </div>
       </section>
@@ -338,8 +364,8 @@
       <!-- ===== BUDGET ===== -->
       <section id="tab-budget" class="tab-content">
         <h2>🎯 Anggaran Bulanan</h2>
-        <p style="color:var(--gray-600);margin-bottom:16px;">Atur batas pengeluaran per kategori.</p>
-        <div id="budget-list" class="budget-grid"></div>
+        <p style="color:var(--gray-600);margin-bottom:16px;">Atur batas pengeluaran per kategori untuk keuangan yang lebih sehat.</p>
+        <div id="budget-list" class="budget-grid"><p style="color:var(--gray-600);">⏳ Memuat data...</p></div>
         <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
           <input id="new-budget-cat" placeholder="Kategori" style="padding:8px 12px;border:1.5px solid var(--gray-200);border-radius:8px;">
           <input id="new-budget-amount" type="number" placeholder="Batas (Rp)" style="padding:8px 12px;border:1.5px solid var(--gray-200);border-radius:8px;">
@@ -350,8 +376,8 @@
       <!-- ===== ACCOUNTS ===== -->
       <section id="tab-accounts" class="tab-content">
         <h2>🏦 Rekening & Dompet</h2>
-        <p style="color:var(--gray-600);margin-bottom:16px;">Kelola sumber dana Anda.</p>
-        <div id="account-list" style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:20px;"></div>
+        <p style="color:var(--gray-600);margin-bottom:16px;">Kelola sumber dana Anda bersama pasangan.</p>
+        <div id="account-list" style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:20px;"><p style="color:var(--gray-600);">⏳ Memuat data...</p></div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
           <input id="new-account-name" placeholder="Nama Rekening" style="padding:8px 12px;border:1.5px solid var(--gray-200);border-radius:8px;">
           <input id="new-account-balance" type="number" placeholder="Saldo Awal" style="padding:8px 12px;border:1.5px solid var(--gray-200);border-radius:8px;">
@@ -365,7 +391,7 @@
         <div style="overflow-x:auto;">
           <table class="data-table">
             <thead><tr><th>Waktu</th><th>Username</th><th>Aksi</th><th>Detail</th></tr></thead>
-            <tbody id="audit-body"></tbody>
+            <tbody id="audit-body"><tr><td colspan="4" style="text-align:center;padding:20px;color:var(--gray-600);">⏳ Memuat data...</td></tr></tbody>
           </table>
         </div>
       </section>
@@ -376,6 +402,18 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
+  // ============================================================
+  // KEUANGAN ROMANTIS - Client Side
+  // Google Apps Script URL
+  // ============================================================
+  
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbzy9GRqhmTJUerVbIKNFJ2rTdaTlTMMrV5t8rQTtcM8jEJnxiOTtrVLly1214Md0k7Fzw/exec';
+  
+  let currentUser = null;
+  let allData = { transactions: [], accounts: [], budgets: [], auditLogs: [] };
+  let chartCategory = null;
+  let chartMonthly = null;
+
   // ============================================================
   // PWA INSTALL HANDLER
   // ============================================================
@@ -396,7 +434,7 @@
       const result = await deferredPrompt.userChoice;
       if (result.outcome === 'accepted') {
         installBanner.classList.remove('show');
-        console.log('✅ Aplikasi diinstal');
+        console.log('✅ Aplikasi ROMANTIS diinstal');
       }
       deferredPrompt = null;
     }
@@ -406,24 +444,42 @@
     installBanner.classList.remove('show');
   });
 
-  // Daftarkan Service Worker
+  // Register Service Worker
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log('✅ Service Worker terdaftar'))
+      .then(() => console.log('✅ Service Worker ROMANTIS terdaftar'))
       .catch((err) => console.log('❌ Service Worker gagal:', err));
   }
 
   // ============================================================
-  // SIMULATED DATA STORE (untuk demo, ganti dengan backend nyata)
+  // HELPER: Panggil Google Apps Script
   // ============================================================
-  let AppData = {
-    users: [{ username: 'admin', password: 'admin123', email: 'admin@keuangan.com', role: 'admin' }],
-    transactions: [],
-    budgets: [],
-    accounts: [{ id: 'acc1', name: 'Tunai', balance: 0 }],
-    auditLogs: [],
-    currentUser: null
-  };
+  function callGAS(action, data, successCallback, errorCallback) {
+    const payload = {
+      action: action,
+      data: data
+    };
+    
+    fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        successCallback(result);
+      } else {
+        errorCallback(result);
+      }
+    })
+    .catch(error => {
+      errorCallback({ success: false, message: error.message });
+    });
+  }
 
   // ============================================================
   // AUTH
@@ -433,14 +489,20 @@
     document.getElementById('view-register').style.display = 'none';
     clearErrors();
   }
+
   function showRegister() {
     document.getElementById('view-login').style.display = 'none';
     document.getElementById('view-register').style.display = 'flex';
     clearErrors();
   }
+
   function clearErrors() {
-    document.querySelectorAll('.error-msg, .success-msg').forEach(el => { el.style.display = 'none'; el.textContent = ''; });
+    document.querySelectorAll('.error-msg, .success-msg').forEach(el => {
+      el.style.display = 'none';
+      el.textContent = '';
+    });
   }
+
   function showError(id, msg) {
     const el = document.getElementById(id);
     el.textContent = msg;
@@ -451,20 +513,38 @@
     const username = document.getElementById('login-username').value.trim();
     const password = document.getElementById('login-password').value.trim();
     clearErrors();
-    if (!username || !password) return showError('login-error', 'Isi username dan password.');
-    const user = AppData.users.find(u => u.username === username && u.password === password);
-    if (!user) return showError('login-error', 'Username atau password salah.');
-    AppData.currentUser = user;
-    document.getElementById('view-login').style.display = 'none';
-    document.getElementById('view-app').style.display = 'block';
-    document.getElementById('current-user').textContent = user.username + (user.role === 'admin' ? ' (Admin)' : '');
-    if (user.role === 'admin') document.getElementById('nav-audit').style.display = 'inline';
-    loadDashboard();
-    loadHistory();
-    loadBudgetUI();
-    loadAccountsUI();
-    loadAuditLog();
-    addAuditLog('Login', `User ${user.username} login`);
+    
+    if (!username || !password) {
+      return showError('login-error', '💕 Isi username dan password ya!');
+    }
+
+    const btn = document.querySelector('#view-login .btn-primary');
+    btn.disabled = true;
+    btn.textContent = '⏳ Memuat...';
+
+    callGAS('login', { username, password },
+      function(result) {
+        btn.disabled = false;
+        btn.textContent = 'Masuk';
+        if (result.success) {
+          currentUser = result.user;
+          document.getElementById('view-login').style.display = 'none';
+          document.getElementById('view-app').style.display = 'block';
+          document.getElementById('current-user').textContent = '💕 ' + currentUser.username + (currentUser.role === 'admin' ? ' (Admin)' : '');
+          if (currentUser.role === 'admin') {
+            document.getElementById('nav-audit').style.display = 'inline';
+          }
+          loadAllData();
+        } else {
+          showError('login-error', '💔 ' + result.message);
+        }
+      },
+      function(error) {
+        btn.disabled = false;
+        btn.textContent = 'Masuk';
+        showError('login-error', '❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   function doRegister() {
@@ -472,20 +552,40 @@
     const email = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value.trim();
     clearErrors();
-    if (!username || !email || !password) return showError('register-error', 'Semua field wajib diisi.');
-    if (AppData.users.find(u => u.username === username)) return showError('register-error', 'Username sudah terdaftar.');
-    AppData.users.push({ username, password, email, role: 'user' });
-    document.getElementById('register-success').textContent = 'Akun berhasil dibuat! Silakan login.';
-    document.getElementById('register-success').style.display = 'block';
-    document.getElementById('reg-username').value = '';
-    document.getElementById('reg-email').value = '';
-    document.getElementById('reg-password').value = '';
-    addAuditLog('Register', `User baru: ${username}`);
+
+    if (!username || !email || !password) {
+      return showError('register-error', '💕 Semua field wajib diisi ya!');
+    }
+
+    const btn = document.querySelector('#view-register .btn-primary');
+    btn.disabled = true;
+    btn.textContent = '⏳ Memuat...';
+
+    callGAS('register', { username, email, password },
+      function(result) {
+        btn.disabled = false;
+        btn.textContent = 'Daftar';
+        if (result.success) {
+          document.getElementById('register-success').textContent = '💗 ' + result.message;
+          document.getElementById('register-success').style.display = 'block';
+          document.getElementById('reg-username').value = '';
+          document.getElementById('reg-email').value = '';
+          document.getElementById('reg-password').value = '';
+          setTimeout(showLogin, 2000);
+        } else {
+          showError('register-error', '💔 ' + result.message);
+        }
+      },
+      function(error) {
+        btn.disabled = false;
+        btn.textContent = 'Daftar';
+        showError('register-error', '❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   function doLogout() {
-    addAuditLog('Logout', `User ${AppData.currentUser?.username} logout`);
-    AppData.currentUser = null;
+    currentUser = null;
     document.getElementById('view-app').style.display = 'none';
     document.getElementById('view-login').style.display = 'flex';
     document.getElementById('nav-audit').style.display = 'none';
@@ -494,73 +594,107 @@
   }
 
   // ============================================================
-  // TAB NAVIGATION
+  // LOAD DATA
   // ============================================================
-  function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.getElementById('tab-' + tabId).classList.add('active');
-    document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
-    document.querySelector(`.tab-link[data-tab="${tabId}"]`)?.classList.add('active');
-    if (tabId === 'dashboard') loadDashboard();
-    if (tabId === 'history') loadHistory();
-    if (tabId === 'budget') loadBudgetUI();
-    if (tabId === 'accounts') loadAccountsUI();
-    if (tabId === 'audit') loadAuditLog();
+  function loadAllData() {
+    document.getElementById('dashboard-loading').style.display = 'block';
+    document.getElementById('dashboard-content').style.display = 'none';
+
+    callGAS('getAllData', {},
+      function(result) {
+        allData = result.data;
+        document.getElementById('dashboard-loading').style.display = 'none';
+        document.getElementById('dashboard-content').style.display = 'block';
+        loadDashboard();
+        loadHistory();
+        loadBudgetUI();
+        loadAccountsUI();
+        loadAuditLog();
+        loadAccountOptions();
+      },
+      function(error) {
+        document.getElementById('dashboard-loading').innerHTML = '❌ Gagal memuat data: ' + error.message;
+      }
+    );
   }
 
   // ============================================================
   // DASHBOARD
   // ============================================================
-  let chartCategory = null, chartMonthly = null;
-
   function loadDashboard() {
-    const tx = AppData.transactions;
+    const tx = allData.transactions || [];
     let income = 0, expense = 0;
     const catMap = {};
     const monthMap = {};
+
     tx.forEach(t => {
       const amt = parseFloat(t.amount) || 0;
       if (t.type === 'Pemasukan') { income += amt; } else { expense += amt; }
-      if (t.type === 'Pengeluaran') { catMap[t.category] = (catMap[t.category] || 0) + amt; }
+      if (t.type === 'Pengeluaran') {
+        catMap[t.category] = (catMap[t.category] || 0) + amt;
+      }
       const d = new Date(t.date);
       const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
       if (!monthMap[key]) monthMap[key] = { income: 0, expense: 0 };
       if (t.type === 'Pemasukan') monthMap[key].income += amt;
       else monthMap[key].expense += amt;
     });
+
     const saldo = income - expense;
     document.getElementById('stat-saldo').textContent = formatRupiah(saldo);
     document.getElementById('stat-income').textContent = formatRupiah(income);
     document.getElementById('stat-expense').textContent = formatRupiah(expense);
-    const totalBudget = AppData.budgets.reduce((sum, b) => sum + (parseFloat(b.amount)||0), 0);
+
+    const totalBudget = (allData.budgets || []).reduce((sum, b) => sum + (parseFloat(b.amount)||0), 0);
     document.getElementById('stat-budget').textContent = formatRupiah(totalBudget - expense);
 
+    // Chart Category
     const ctx1 = document.getElementById('chart-category').getContext('2d');
     if (chartCategory) chartCategory.destroy();
     const labels = Object.keys(catMap);
     const data = Object.values(catMap);
-    chartCategory = new Chart(ctx1, {
-      type: 'doughnut',
-      data: { labels, datasets: [{ data, backgroundColor: ['#1a73e8','#0f9d58','#f9ab00','#d93025','#9c27b0','#00bcd4'] }] },
-      options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } }
-    });
+    if (labels.length > 0) {
+      chartCategory = new Chart(ctx1, {
+        type: 'doughnut',
+        data: { 
+          labels: labels, 
+          datasets: [{ 
+            data: data, 
+            backgroundColor: ['#e91e63','#9c27b0','#f9ab00','#0f9d58','#1a73e8','#00bcd4','#ff5722','#795548'] 
+          }] 
+        },
+        options: { 
+          responsive: true, 
+          plugins: { 
+            legend: { position: 'bottom', labels: { boxWidth: 12 } } 
+          } 
+        }
+      });
+    }
 
+    // Chart Monthly
     const ctx2 = document.getElementById('chart-monthly').getContext('2d');
     if (chartMonthly) chartMonthly.destroy();
-    const sortedMonths = Object.keys(monthMap).sort();
+    const sortedMonths = Object.keys(monthMap).sort().slice(-6);
     const incomeData = sortedMonths.map(m => monthMap[m].income);
     const expenseData = sortedMonths.map(m => monthMap[m].expense);
-    chartMonthly = new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: sortedMonths,
-        datasets: [
-          { label: 'Pemasukan', data: incomeData, backgroundColor: '#0f9d58' },
-          { label: 'Pengeluaran', data: expenseData, backgroundColor: '#d93025' }
-        ]
-      },
-      options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
-    });
+    if (sortedMonths.length > 0) {
+      chartMonthly = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: sortedMonths,
+          datasets: [
+            { label: '💕 Pemasukan', data: incomeData, backgroundColor: '#0f9d58' },
+            { label: '💔 Pengeluaran', data: expenseData, backgroundColor: '#d93025' }
+          ]
+        },
+        options: { 
+          responsive: true, 
+          plugins: { legend: { position: 'top' } }, 
+          scales: { y: { beginAtZero: true } } 
+        }
+      });
+    }
   }
 
   // ============================================================
@@ -573,9 +707,11 @@
       ['Makanan', 'Transportasi', 'Belanja', 'Tagihan', 'Hiburan', 'Kesehatan', 'Pendidikan', 'Lainnya'];
     sel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
   }
+
   function loadAccountOptions() {
     const sel = document.getElementById('tx-account');
-    sel.innerHTML = AppData.accounts.map(a => `<option value="${a.name}">${a.name}</option>`).join('');
+    const accounts = allData.accounts || [{ name: 'Tunai' }];
+    sel.innerHTML = accounts.map(a => `<option value="${a.name}">${a.name}</option>`).join('');
   }
 
   function submitTransaction() {
@@ -587,44 +723,60 @@
     const desc = document.getElementById('tx-description').value.trim();
     const errorEl = document.getElementById('tx-error');
     errorEl.style.display = 'none';
-    if (!date) return showError('tx-error', 'Pilih tanggal.');
-    if (!amount || amount <= 0) return showError('tx-error', 'Masukkan jumlah yang valid.');
-    const tx = {
-      id: Date.now(),
-      date, type, category, account, amount, description: desc,
-      inputBy: AppData.currentUser?.username || 'system'
+
+    if (!date) return showError('tx-error', '💕 Pilih tanggal dulu ya!');
+    if (!amount || amount <= 0) return showError('tx-error', '💕 Masukkan jumlah yang valid!');
+
+    const btn = document.querySelector('#tab-input .btn-primary');
+    btn.disabled = true;
+    btn.textContent = '⏳ Menyimpan...';
+
+    const transaction = {
+      date: date,
+      type: type,
+      category: category,
+      account: account,
+      amount: amount,
+      description: desc,
+      inputBy: currentUser?.username || 'system'
     };
-    AppData.transactions.push(tx);
-    const acc = AppData.accounts.find(a => a.name === account);
-    if (acc) {
-      acc.balance = (acc.balance || 0) + (type === 'Pemasukan' ? amount : -amount);
-    }
-    addAuditLog('Transaksi', `${type} ${category} Rp${amount} - ${desc || 'tanpa deskripsi'}`);
-    document.getElementById('tx-amount').value = '';
-    document.getElementById('tx-description').value = '';
-    document.getElementById('tx-date').value = '';
-    loadDashboard();
-    loadHistory();
-    loadBudgetUI();
-    loadAccountsUI();
-    alert('Transaksi berhasil disimpan!');
+
+    callGAS('addTransaction', transaction,
+      function(result) {
+        btn.disabled = false;
+        btn.textContent = '💾 Simpan Transaksi';
+        if (result.success) {
+          document.getElementById('tx-amount').value = '';
+          document.getElementById('tx-description').value = '';
+          document.getElementById('tx-date').value = new Date().toISOString().split('T')[0];
+          loadAllData();
+          alert('✅ Transaksi berhasil disimpan! 💗');
+        } else {
+          showError('tx-error', '❌ Gagal: ' + result.message);
+        }
+      },
+      function(error) {
+        btn.disabled = false;
+        btn.textContent = '💾 Simpan Transaksi';
+        showError('tx-error', '❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   function deleteTransaction(id) {
-    if (!confirm('Hapus transaksi ini?')) return;
-    const idx = AppData.transactions.findIndex(t => t.id === id);
-    if (idx === -1) return;
-    const tx = AppData.transactions[idx];
-    const acc = AppData.accounts.find(a => a.name === tx.account);
-    if (acc) {
-      acc.balance = (acc.balance || 0) - (tx.type === 'Pemasukan' ? tx.amount : -tx.amount);
-    }
-    AppData.transactions.splice(idx, 1);
-    addAuditLog('Hapus', `Hapus transaksi ID ${id}`);
-    loadDashboard();
-    loadHistory();
-    loadBudgetUI();
-    loadAccountsUI();
+    if (!confirm('💔 Yakin mau hapus transaksi ini?')) return;
+    callGAS('deleteTransaction', { id: id },
+      function(result) {
+        if (result.success) {
+          loadAllData();
+        } else {
+          alert('❌ Gagal: ' + result.message);
+        }
+      },
+      function(error) {
+        alert('❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   // ============================================================
@@ -633,13 +785,14 @@
   function loadHistory() {
     const start = document.getElementById('filter-start').value;
     const end = document.getElementById('filter-end').value;
-    let filtered = AppData.transactions;
+    let filtered = allData.transactions || [];
     if (start) filtered = filtered.filter(t => t.date >= start);
     if (end) filtered = filtered.filter(t => t.date <= end);
     filtered.sort((a,b) => b.date.localeCompare(a.date) || b.id - a.id);
+
     const tbody = document.getElementById('history-body');
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--gray-600);">Belum ada transaksi.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--gray-600);">💕 Belum ada transaksi. Yuk mulai catat!</td></tr>`;
       return;
     }
     tbody.innerHTML = filtered.map(t => `
@@ -660,15 +813,18 @@
   // ============================================================
   function loadBudgetUI() {
     const container = document.getElementById('budget-list');
-    if (AppData.budgets.length === 0) {
-      container.innerHTML = '<p style="color:var(--gray-600);">Belum ada anggaran. Tambahkan di bawah.</p>';
+    const budgets = allData.budgets || [];
+    if (budgets.length === 0) {
+      container.innerHTML = '<p style="color:var(--gray-600);">💕 Belum ada anggaran. Yuk atur keuangan bersama!</p>';
       return;
     }
+
     const spent = {};
-    AppData.transactions.filter(t => t.type === 'Pengeluaran').forEach(t => {
+    (allData.transactions || []).filter(t => t.type === 'Pengeluaran').forEach(t => {
       spent[t.category] = (spent[t.category] || 0) + t.amount;
     });
-    container.innerHTML = AppData.budgets.map(b => {
+
+    container.innerHTML = budgets.map(b => {
       const used = spent[b.category] || 0;
       const pct = Math.min(100, (used / b.amount) * 100);
       const cls = pct > 90 ? 'danger' : pct > 70 ? 'warning' : '';
@@ -686,22 +842,43 @@
   function addBudget() {
     const cat = document.getElementById('new-budget-cat').value.trim();
     const amt = parseFloat(document.getElementById('new-budget-amount').value);
-    if (!cat || !amt || amt <= 0) return alert('Isi kategori dan batas anggaran dengan benar.');
-    if (AppData.budgets.find(b => b.category === cat)) return alert('Anggaran untuk kategori ini sudah ada.');
-    AppData.budgets.push({ category: cat, amount: amt });
-    addAuditLog('Budget', `Tambah anggaran ${cat} Rp${amt}`);
-    document.getElementById('new-budget-cat').value = '';
-    document.getElementById('new-budget-amount').value = '';
-    loadBudgetUI();
-    loadDashboard();
+    if (!cat || !amt || amt <= 0) return alert('💕 Isi kategori dan batas anggaran dengan benar!');
+    
+    const btn = document.querySelector('#tab-budget .btn-primary');
+    btn.disabled = true;
+    btn.textContent = '⏳ Menyimpan...';
+
+    callGAS('addBudget', { category: cat, amount: amt },
+      function(result) {
+        btn.disabled = false;
+        btn.textContent = 'Tambah';
+        if (result.success) {
+          document.getElementById('new-budget-cat').value = '';
+          document.getElementById('new-budget-amount').value = '';
+          loadAllData();
+        } else {
+          alert('❌ Gagal: ' + result.message);
+        }
+      },
+      function(error) {
+        btn.disabled = false;
+        btn.textContent = 'Tambah';
+        alert('❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   function deleteBudget(category) {
-    if (!confirm(`Hapus anggaran untuk ${category}?`)) return;
-    AppData.budgets = AppData.budgets.filter(b => b.category !== category);
-    addAuditLog('Budget', `Hapus anggaran ${category}`);
-    loadBudgetUI();
-    loadDashboard();
+    if (!confirm(`💔 Hapus anggaran untuk ${category}?`)) return;
+    callGAS('deleteBudget', { category: category },
+      function(result) {
+        if (result.success) loadAllData();
+        else alert('❌ Gagal: ' + result.message);
+      },
+      function(error) {
+        alert('❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   // ============================================================
@@ -709,11 +886,12 @@
   // ============================================================
   function loadAccountsUI() {
     const container = document.getElementById('account-list');
-    if (AppData.accounts.length === 0) {
-      container.innerHTML = '<p style="color:var(--gray-600);">Belum ada rekening.</p>';
+    const accounts = allData.accounts || [];
+    if (accounts.length === 0) {
+      container.innerHTML = '<p style="color:var(--gray-600);">💕 Belum ada rekening. Yuk tambahkan!</p>';
       return;
     }
-    container.innerHTML = AppData.accounts.map(a => `
+    container.innerHTML = accounts.map(a => `
       <div style="background:var(--gray-50);padding:16px;border-radius:var(--radius-sm);flex:1;min-width:150px;border:1px solid var(--gray-200);">
         <div style="font-weight:600;">${a.name}</div>
         <div style="font-size:20px;font-weight:700;color:var(--primary);">${formatRupiah(a.balance || 0)}</div>
@@ -726,42 +904,56 @@
   function addAccount() {
     const name = document.getElementById('new-account-name').value.trim();
     const balance = parseFloat(document.getElementById('new-account-balance').value) || 0;
-    if (!name) return alert('Masukkan nama rekening.');
-    if (AppData.accounts.find(a => a.name === name)) return alert('Nama rekening sudah ada.');
-    AppData.accounts.push({ id: 'acc' + Date.now(), name, balance });
-    addAuditLog('Rekening', `Tambah rekening ${name} saldo Rp${balance}`);
-    document.getElementById('new-account-name').value = '';
-    document.getElementById('new-account-balance').value = '';
-    loadAccountsUI();
-    loadDashboard();
+    if (!name) return alert('💕 Masukkan nama rekening!');
+
+    const btn = document.querySelector('#tab-accounts .btn-primary');
+    btn.disabled = true;
+    btn.textContent = '⏳ Menyimpan...';
+
+    callGAS('addAccount', { name: name, balance: balance },
+      function(result) {
+        btn.disabled = false;
+        btn.textContent = 'Tambah Rekening';
+        if (result.success) {
+          document.getElementById('new-account-name').value = '';
+          document.getElementById('new-account-balance').value = '';
+          loadAllData();
+        } else {
+          alert('❌ Gagal: ' + result.message);
+        }
+      },
+      function(error) {
+        btn.disabled = false;
+        btn.textContent = 'Tambah Rekening';
+        alert('❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   function deleteAccount(name) {
-    if (!confirm(`Hapus rekening ${name}?`)) return;
-    AppData.accounts = AppData.accounts.filter(a => a.name !== name);
-    addAuditLog('Rekening', `Hapus rekening ${name}`);
-    loadAccountsUI();
-    loadDashboard();
+    if (!confirm(`💔 Hapus rekening ${name}?`)) return;
+    callGAS('deleteAccount', { name: name },
+      function(result) {
+        if (result.success) loadAllData();
+        else alert('❌ Gagal: ' + result.message);
+      },
+      function(error) {
+        alert('❌ Gagal: ' + error.message);
+      }
+    );
   }
 
   // ============================================================
   // AUDIT LOG
   // ============================================================
-  function addAuditLog(action, detail) {
-    AppData.auditLogs.push({
-      time: new Date().toISOString(),
-      username: AppData.currentUser?.username || 'system',
-      action, detail
-    });
-  }
-
   function loadAuditLog() {
     const tbody = document.getElementById('audit-body');
-    if (AppData.auditLogs.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--gray-600);">Belum ada log.</td></tr>';
+    const logs = allData.auditLogs || [];
+    if (logs.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--gray-600);">💕 Belum ada log aktivitas.</td></tr>';
       return;
     }
-    tbody.innerHTML = AppData.auditLogs.slice().reverse().map(log => `
+    tbody.innerHTML = logs.slice().reverse().map(log => `
       <tr><td>${new Date(log.time).toLocaleString()}</td><td>${log.username}</td><td>${log.action}</td><td>${log.detail}</td></tr>
     `).join('');
   }
@@ -770,8 +962,8 @@
   // EXPORT
   // ============================================================
   function exportCSV() {
-    const tx = AppData.transactions;
-    if (tx.length === 0) return alert('Tidak ada data untuk diexport.');
+    const tx = allData.transactions || [];
+    if (tx.length === 0) return alert('💕 Belum ada data untuk diexport.');
     let csv = 'Tanggal,Tipe,Kategori,Rekening,Jumlah,Deskripsi\n';
     tx.forEach(t => {
       csv += `${t.date},${t.type},${t.category},${t.account||'Tunai'},${t.amount},${t.description||''}\n`;
@@ -779,14 +971,29 @@
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'transaksi.csv'; a.click();
+    a.href = url; a.download = 'transaksi_romantis.csv'; a.click();
     URL.revokeObjectURL(url);
-    addAuditLog('Export', 'Export CSV');
   }
 
-  function exportPDF() {
-    alert('Fitur export PDF membutuhkan library tambahan (jsPDF). Untuk demo, data dapat dicetak dari browser (Ctrl+P).');
-    addAuditLog('Export', 'Export PDF (demo)');
+  // ============================================================
+  // TAB NAVIGATION
+  // ============================================================
+  function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById('tab-' + tabId);
+    if (target) target.classList.add('active');
+    
+    document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
+    const link = document.querySelector(`.tab-link[data-tab="${tabId}"]`);
+    if (link) link.classList.add('active');
+
+    if (tabId === 'dashboard' && allData.transactions) {
+      loadDashboard();
+    }
+    if (tabId === 'history') loadHistory();
+    if (tabId === 'budget') loadBudgetUI();
+    if (tabId === 'accounts') loadAccountsUI();
+    if (tabId === 'audit') loadAuditLog();
   }
 
   // ============================================================
@@ -802,51 +1009,10 @@
   // ============================================================
   document.getElementById('tx-date').value = new Date().toISOString().split('T')[0];
   loadCategoryOptions();
-  loadAccountOptions();
 
-  function seedDemoData() {
-    if (AppData.transactions.length > 0) return;
-    const now = new Date();
-    const cats = ['Makanan', 'Transportasi', 'Tagihan', 'Belanja', 'Hiburan'];
-    const descs = ['Warung', 'Gojek', 'Listrik', 'Baju', 'Netflix'];
-    for (let i = 0; i < 15; i++) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - i * 2);
-      const isIncome = i % 5 === 0;
-      AppData.transactions.push({
-        id: Date.now() + i,
-        date: d.toISOString().split('T')[0],
-        type: isIncome ? 'Pemasukan' : 'Pengeluaran',
-        category: isIncome ? 'Gaji' : cats[i % cats.length],
-        account: 'Tunai',
-        amount: isIncome ? 5000000 : 50000 + (i * 15000),
-        description: isIncome ? 'Gaji bulanan' : descs[i % descs.length],
-        inputBy: 'admin'
-      });
-    }
-    AppData.budgets = [
-      { category: 'Makanan', amount: 1500000 },
-      { category: 'Transportasi', amount: 800000 },
-      { category: 'Tagihan', amount: 1000000 },
-      { category: 'Belanja', amount: 600000 },
-      { category: 'Hiburan', amount: 400000 }
-    ];
-    AppData.accounts = [
-      { id: 'acc1', name: 'Tunai', balance: 5000000 },
-      { id: 'acc2', name: 'BCA', balance: 12000000 },
-      { id: 'acc3', name: 'OVO', balance: 500000 }
-    ];
-    addAuditLog('System', 'Data demo diinisialisasi');
-  }
-  seedDemoData();
-  loadDashboard();
-  loadHistory();
-  loadBudgetUI();
-  loadAccountsUI();
-
-  console.log('🚀 Aplikasi Keuangan Pro siap digunakan!');
-  console.log('🔑 Login: admin / admin123');
-  console.log('📱 Klik "Instal Sekarang" untuk memasang di HP/PC');
+  console.log('💕 Keuangan ROMANTIS siap digunakan!');
+  console.log('💗 Atur keuangan, wujudkan mimpi bersama!');
+  console.log('📱 Bisa diakses di HP, tablet, dan PC');
 </script>
 </body>
 </html>
