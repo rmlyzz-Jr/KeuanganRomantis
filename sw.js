@@ -1,10 +1,10 @@
 // sw.js - Service Worker untuk Keuangan Pro
-const CACHE_NAME = 'keuangan-pro-v2';
+const CACHE_NAME = 'keuangan-ROMANTIS-v1';
 const ASSETS = [
   '/',
   '/index.html',
   'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js',
-  'https://i.ibb.co.com/ycxzyGcC/logo-keuangan.jpg'
+  'https://i.ibb.co.com/wZMrZqwn/logo-romantis.png'
 ];
 
 self.addEventListener('install', (event) => {
