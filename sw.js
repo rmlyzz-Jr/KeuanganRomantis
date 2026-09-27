@@ -1,132 +1,48 @@
-// ============================================================
-// Service Worker - Keuangan ROMANTIS
-// ============================================================
+// Service Worker - Aplikasi Keuangan
+// Naikkan versi ini setiap kali index.html/style/script diubah, supaya cache lama dibuang.
+const CACHE_VERSION = 'keuanganku-v1';
 
-const CACHE_NAME = 'romantis-v2';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js',
-  'https://i.ibb.co.com/wZMrZqwn/logo-romantis.png'
+const APP_SHELL = [
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-maskable-512.png',
+  './icons/apple-touch-icon.png',
 ];
 
-// ============================================================
-// INSTALL - Cache aset penting
-// ============================================================
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('💕 ROMANTIS: Caching assets...');
-        return cache.addAll(ASSETS);
-      })
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_VERSION).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())
   );
 });
 
-// ============================================================
-// ACTIVATE - Bersihkan cache lama
-// ============================================================
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME)
-          .map((key) => {
-            console.log('💕 ROMANTIS: Menghapus cache lama:', key);
-            return caches.delete(key);
-          })
-      );
-    })
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_VERSION).map((k) => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
-  return self.clients.claim();
 });
 
-// ============================================================
-// FETCH - Serve dari cache jika ada, jika tidak fetch dari network
-// ============================================================
 self.addEventListener('fetch', (event) => {
-  // Skip request yang tidak perlu di-cache
-  if (event.request.url.includes('google-analytics') || 
-      event.request.url.includes('doubleclick.net') ||
-      event.request.url.includes('googletagmanager')) {
-    return;
+  const req = event.request;
+
+  // Jangan cache panggilan API (POST ke Apps Script) — selalu ambil data terbaru dari server.
+  if (req.method !== 'GET' || req.url.includes('script.google.com')) {
+    return; // biarkan browser handle langsung, tidak lewat service worker
   }
 
+  // App shell: network-first supaya update index.html/CSS/JS langsung kepakai,
+  // fallback ke cache kalau offline.
   event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // Jika ada di cache, kembalikan
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        
-        // Jika tidak ada di cache, fetch dari network
-        return fetch(event.request)
-          .then((response) => {
-            // Cek apakah response valid
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            
-            // Clone response untuk disimpan di cache
-            const responseToCache = response.clone();
-            
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                try {
-                  cache.put(event.request, responseToCache);
-                } catch (e) {
-                  console.log('💕 ROMANTIS: Gagal cache:', e);
-                }
-              });
-            
-            return response;
-          })
-          .catch(() => {
-            // Fallback offline - tampilkan halaman offline jika tersedia
-            return caches.match('/offline.html');
-          });
+    fetch(req)
+      .then((res) => {
+        const resClone = res.clone();
+        caches.open(CACHE_VERSION).then((cache) => cache.put(req, resClone));
+        return res;
       })
+      .catch(() => caches.match(req).then((cached) => cached || caches.match('./index.html')))
   );
 });
-
-// ============================================================
-// PUSH NOTIFICATION (Opsional - untuk masa depan)
-// ============================================================
-self.addEventListener('push', (event) => {
-  const options = {
-    body: event.data ? event.data.text() : '💕 Ada update keuangan nih!',
-    icon: 'https://i.ibb.co.com/wZMrZqwn/logo-romantis.png',
-    badge: 'https://i.ibb.co.com/wZMrZqwn/logo-romantis.png',
-    vibrate: [200, 100, 200],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    },
-    actions: [
-      { action: 'explore', title: 'Lihat Aplikasi', icon: 'https://i.ibb.co.com/wZMrZqwn/logo-romantis.png' },
-      { action: 'close', title: 'Tutup' }
-    ]
-  };
-
-  event.waitUntil(
-    self.registration.showNotification('💕 ROMANTIS Keuangan', options)
-  );
-});
-
-// ============================================================
-// NOTIFICATION CLICK
-// ============================================================
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-
-  if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('/')
-    );
-  }
-});
-
-console.log('💕 ROMANTIS Service Worker siap!');
